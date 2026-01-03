@@ -1,0 +1,136 @@
+/* AMU Brand Typography - Google Fonts Import (Section 9.3) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;1,400&family=Roboto:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AMU Brand CSS Variables (Section 9.2) */
+:root {
+  /* Brand colours */
+  --color-primary: #0A2F5C;       /* Navy Blue */
+  --color-background: #FFFFFF;    /* Pure White */
+  --color-accent: #5D7290;        /* Slate Blue */
+  --color-highlight: #D9E6F2;     /* Light Sky Blue */
+  --color-text: #2F2F2F;          /* Charcoal Grey */
+  
+  /* Semantic aliases */
+  --color-heading: var(--color-primary);
+  --color-body: var(--color-text);
+  --color-quote: var(--color-accent);
+  --color-box-background: var(--color-highlight);
+  --color-border-subtle: var(--color-accent);
+  --color-border-strong: var(--color-primary);
+  
+  /* Legacy variables for compatibility */
+  --foreground-rgb: 47, 47, 47;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 10, 47, 92;
+    --background-end-rgb: 10, 47, 92;
+  }
+}
+
+body {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  color: var(--color-text);
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+/* AMU Typography Classes (Section 9.3) */
+.amu-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24pt;
+  font-weight: 400;
+  color: #0A2F5C;
+}
+
+.amu-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18pt;
+  font-weight: 400;
+  color: #0A2F5C;
+}
+
+.amu-callout {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13pt;
+  font-style: italic;
+  color: #5D7290;
+}
+
+.amu-body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12pt;
+  font-weight: 400;
+  color: #2F2F2F;
+}
+
+.amu-footer {
+  font-family: 'Roboto', sans-serif;
+  font-size: 10pt;
+  font-weight: 400;
+  color: #2F2F2F;
+}
+
+/* AMU Header Style (Section 9.5) */
+.amu-header {
+  background-color: #0A2F5C;
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20pt;
+  font-weight: 400;
+  text-align: center;
+  padding: 1em 0;
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+/* AMU Footer Bar Style (Section 9.5) */
+.amu-footer-bar {
+  background-color: #D9E6F2;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10pt;
+  color: #2F2F2F;
+  text-align: center;
+  padding: 0.75em 0;
+}
+
+/* AMU Highlight Boxes (Section 9.5) */
+.amu-highlight-subtle {
+  background-color: #D9E6F2;
+  border: 1px solid #5D7290;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+.amu-highlight-strong {
+  background-color: #D9E6F2;
+  border: 2px solid #0A2F5C;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5D7290;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0A2F5C;
+}

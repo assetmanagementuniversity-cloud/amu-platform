@@ -1,0 +1,62 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ============================================
+    // Certificates - User can read their own
+    // ============================================
+
+    match /unofficial/{userId}/{allPaths=**} {
+      allow read: if request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    match /official/{userId}/{allPaths=**} {
+      allow read: if request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // ============================================
+    // SETA Documents - User can upload (max 10MB)
+    // ============================================
+
+    match /seta-documents/{registrationId}/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+                     request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // ============================================
+    // Assignments - User can upload their own (max 25MB)
+    // ============================================
+
+    match /assignments/{userId}/{allPaths=**} {
+      allow read: if request.auth.uid == userId;
+      allow write: if request.auth.uid == userId &&
+                     request.resource.size < 25 * 1024 * 1024;
+    }
+
+    // ============================================
+    // Public Content Cache
+    // ============================================
+
+    match /content-cache/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // ============================================
+    // Course Images and Assets (Public Read)
+    // ============================================
+
+    match /course-images/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /case-study-assets/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

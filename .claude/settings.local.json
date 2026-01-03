@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(du:*)",
+      "Bash(find:*)",
+      "Bash(done)",
+      "Bash(ls:*)"
+    ]
+  }
+}

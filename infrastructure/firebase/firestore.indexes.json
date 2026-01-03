@@ -1,0 +1,145 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "user_email", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "user_referral_code", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "user_company_id", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "companies",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "company_code", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "courses",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "course_published", "order": "ASCENDING" },
+        { "fieldPath": "course_title", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "courses",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "course_type", "order": "ASCENDING" },
+        { "fieldPath": "course_published", "order": "ASCENDING" },
+        { "fieldPath": "course_title", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "modules",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "module_course_id", "order": "ASCENDING" },
+        { "fieldPath": "module_order", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "enrolments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "enrolment_user_id", "order": "ASCENDING" },
+        { "fieldPath": "enrolment_started_date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "enrolments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "enrolment_user_id", "order": "ASCENDING" },
+        { "fieldPath": "enrolment_course_id", "order": "ASCENDING" },
+        { "fieldPath": "enrolment_status", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "conversations",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "conversation_user_id", "order": "ASCENDING" },
+        { "fieldPath": "conversation_last_message_date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "conversations",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "conversation_enrolment_id", "order": "ASCENDING" },
+        { "fieldPath": "conversation_status", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "messages",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        { "fieldPath": "message_timestamp", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "conversation_summaries",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "summary_conversation_id", "order": "ASCENDING" },
+        { "fieldPath": "summary_session_number", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "conversation_summaries",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "summary_conversation_id", "order": "ASCENDING" },
+        { "fieldPath": "summary_session_number", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "certificates",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "certificate_user_id", "order": "ASCENDING" },
+        { "fieldPath": "certificate_issue_date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "certificates",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "certificate_code", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "referrals",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "referral_referrer_user_id", "order": "ASCENDING" },
+        { "fieldPath": "referral_status", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "payments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "payment_user_id", "order": "ASCENDING" },
+        { "fieldPath": "payment_created_date", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
