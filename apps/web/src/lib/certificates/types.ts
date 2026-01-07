@@ -44,6 +44,22 @@ export interface Certificate {
   certificate_verification_url: string;
   certificate_created_at: Date;
   certificate_updated_at: Date;
+  // SETA details for official certificates
+  certificate_seta_name?: string;
+  certificate_nqf_level?: number;
+  certificate_credits?: number;
+  certificate_seta_registration_number?: string;
+}
+
+/**
+ * SETA registration details for official certificates
+ */
+export interface SETACertificateDetails {
+  setaName: string;           // e.g., "CHIETA"
+  nqfLevel: number;           // e.g., 5
+  credits: number;            // e.g., 12
+  qualificationId?: string;   // SAQA qualification ID
+  registrationNumber?: string; // SETA registration number
 }
 
 /**
@@ -57,6 +73,7 @@ export interface GenerateCertificateParams {
   courseTitle: string;
   competencies: CertificateCompetency[];
   template?: CertificateTemplate;
+  setaDetails?: SETACertificateDetails; // Required for official certificates
 }
 
 /**

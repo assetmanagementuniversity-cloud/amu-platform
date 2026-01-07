@@ -22,6 +22,9 @@ import teamRoutes from './routes/team';
 import paymentsRoutes from './routes/payments';
 import marketingRoutes from './routes/marketing';
 import searchRoutes from './routes/search';
+import webhooksRoutes from './routes/webhooks';
+import privacyRoutes from './routes/privacy';
+import checkoutRoutes from './routes/checkout';
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +41,12 @@ app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   credentials: true,
 }));
+
+// Stripe webhooks need raw body for signature verification
+// Must be before express.json() middleware
+app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
+
+// Regular JSON parsing for all other routes
 app.use(express.json({ limit: '10mb' }));
 app.use(requestLogger);
 
@@ -59,6 +68,9 @@ app.use('/api/team', teamRoutes);
 app.use('/api/payments', paymentsRoutes);
 app.use('/api/team/marketing', marketingRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/webhooks', webhooksRoutes);
+app.use('/api/privacy', privacyRoutes);
+app.use('/api/checkout', checkoutRoutes);
 
 // Error handling
 app.use(errorHandler);

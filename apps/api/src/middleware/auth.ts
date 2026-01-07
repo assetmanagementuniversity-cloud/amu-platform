@@ -129,3 +129,48 @@ export async function requireTeamMember(
     next(createApiError('Invalid or expired token', 401, 'INVALID_TOKEN'));
   }
 }
+
+/**
+ * Require admin access only
+ * Stricter than requireTeamMember - only users with admin claim can access
+ */
+export async function requireAdmin(
+  req: TeamMemberRequest,
+  _res: Response,
+  next: NextFunction
+): Promise<void> {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw createApiError('Missing or invalid authorization header', 401, 'UNAUTHORIZED');
+    }
+
+    const token = authHeader.substring(7);
+    const auth = getAuth();
+
+    const decodedToken = await auth.verifyIdToken(token);
+
+    req.userId = decodedToken.uid;
+    req.userEmail = decodedToken.email;
+
+    // Check if user has admin claim
+    const isAdmin = decodedToken.admin === true;
+
+    if (!isAdmin) {
+      throw createApiError('Admin access required', 403, 'FORBIDDEN');
+    }
+
+    req.isAdmin = true;
+    req.teamMemberRole = 'admin';
+    req.categoriesManaged = (decodedToken.categories_managed as string[]) || [];
+
+    next();
+  } catch (error) {
+    if ((error as { statusCode?: number }).statusCode) {
+      next(error);
+      return;
+    }
+    next(createApiError('Invalid or expired token', 401, 'INVALID_TOKEN'));
+  }
+}

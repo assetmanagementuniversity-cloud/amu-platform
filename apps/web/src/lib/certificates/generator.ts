@@ -32,6 +32,7 @@ import {
   type GenerateCertificateResult,
   type Certificate,
   type CertificateCompetency,
+  type SETACertificateDetails,
   AMU_COLORS,
   CERTIFICATE_DIMENSIONS,
 } from './types';
@@ -162,6 +163,126 @@ function drawUnofficialWatermark(doc: PDFKit.PDFDocument): void {
 
   doc.restore();
   doc.opacity(1);
+}
+
+/**
+ * Draw official certificate gold seal emblem
+ */
+function drawOfficialSeal(doc: PDFKit.PDFDocument): void {
+  const { width, margin } = CERTIFICATE_DIMENSIONS;
+
+  const sealX = width - margin - 80;
+  const sealY = margin + 30;
+  const sealRadius = 35;
+
+  // Outer gold circle
+  doc
+    .circle(sealX, sealY, sealRadius)
+    .fillColor(AMU_COLORS.gold)
+    .fill();
+
+  // Inner navy circle
+  doc
+    .circle(sealX, sealY, sealRadius - 5)
+    .strokeColor(AMU_COLORS.navy)
+    .lineWidth(2)
+    .stroke();
+
+  // Inner gold ring
+  doc
+    .circle(sealX, sealY, sealRadius - 10)
+    .strokeColor(AMU_COLORS.gold)
+    .lineWidth(1)
+    .stroke();
+
+  // "OFFICIAL" text in seal
+  doc
+    .fontSize(7)
+    .fillColor(AMU_COLORS.navy)
+    .text('OFFICIAL', sealX - 20, sealY - 12, {
+      width: 40,
+      align: 'center',
+    });
+
+  // "SETA" text below
+  doc
+    .fontSize(9)
+    .fillColor(AMU_COLORS.navy)
+    .text('SETA', sealX - 15, sealY, {
+      width: 30,
+      align: 'center',
+    });
+
+  // "REGISTERED" text
+  doc
+    .fontSize(5)
+    .fillColor(AMU_COLORS.navy)
+    .text('REGISTERED', sealX - 20, sealY + 12, {
+      width: 40,
+      align: 'center',
+    });
+}
+
+/**
+ * Draw SETA registration details for official certificates
+ */
+function drawSETADetails(
+  doc: PDFKit.PDFDocument,
+  setaDetails: SETACertificateDetails
+): void {
+  const { width, height, margin } = CERTIFICATE_DIMENSIONS;
+
+  const boxWidth = 200;
+  const boxHeight = 45;
+  const boxX = (width - boxWidth) / 2;
+  const boxY = height - margin - 110;
+
+  // Draw background box
+  doc
+    .rect(boxX, boxY, boxWidth, boxHeight)
+    .fillColor(AMU_COLORS.sky)
+    .fill();
+
+  // Draw border
+  doc
+    .rect(boxX, boxY, boxWidth, boxHeight)
+    .strokeColor(AMU_COLORS.navy)
+    .lineWidth(1)
+    .stroke();
+
+  // SETA Name header
+  doc
+    .fontSize(8)
+    .fillColor(AMU_COLORS.navy)
+    .text(`Registered with ${setaDetails.setaName}`, boxX, boxY + 8, {
+      width: boxWidth,
+      align: 'center',
+    });
+
+  // NQF Level and Credits
+  doc
+    .fontSize(10)
+    .fillColor(AMU_COLORS.charcoal)
+    .text(
+      `NQF Level ${setaDetails.nqfLevel} • ${setaDetails.credits} Credits`,
+      boxX,
+      boxY + 20,
+      {
+        width: boxWidth,
+        align: 'center',
+      }
+    );
+
+  // Registration number if available
+  if (setaDetails.registrationNumber) {
+    doc
+      .fontSize(6)
+      .fillColor(AMU_COLORS.slate)
+      .text(`Reg. No: ${setaDetails.registrationNumber}`, boxX, boxY + 34, {
+        width: boxWidth,
+        align: 'center',
+      });
+  }
 }
 
 /**
@@ -442,7 +563,16 @@ export async function generateCertificate(
     courseTitle,
     competencies,
     template = 'unofficial',
+    setaDetails,
   } = params;
+
+  // Validate that official certificates have SETA details
+  if (template === 'official' && !setaDetails) {
+    return {
+      success: false,
+      error: 'Official certificates require SETA registration details',
+    };
+  }
 
   try {
     // Generate unique certificate ID
@@ -477,9 +607,13 @@ export async function generateCertificate(
     // 1. Decorative border
     drawDecorativeBorder(doc);
 
-    // 2. UNOFFICIAL watermark (for unofficial template)
+    // 2. Template-specific elements
     if (template === 'unofficial') {
+      // UNOFFICIAL watermark for free certificates
       drawUnofficialWatermark(doc);
+    } else if (template === 'official') {
+      // Gold seal for official SETA-registered certificates
+      drawOfficialSeal(doc);
     }
 
     // 3. Logo
@@ -491,13 +625,18 @@ export async function generateCertificate(
     // 5. Main content
     drawContent(doc, learnerName, courseTitle, competencies, issueDate);
 
-    // 6. QR code and verification
+    // 6. SETA details (for official certificates)
+    if (template === 'official' && setaDetails) {
+      drawSETADetails(doc, setaDetails);
+    }
+
+    // 7. QR code and verification
     await drawVerification(doc, verificationUrl, certificateId);
 
-    // 7. Signature
+    // 8. Signature
     drawSignature(doc);
 
-    // 8. Footer
+    // 9. Footer
     drawFooter(doc);
 
     // Finalise PDF
@@ -526,6 +665,15 @@ export async function generateCertificate(
       certificate_verification_url: verificationUrl,
       certificate_created_at: new Date(),
       certificate_updated_at: new Date(),
+      // Include SETA details for official certificates
+      ...(template === 'official' && setaDetails
+        ? {
+            certificate_seta_name: setaDetails.setaName,
+            certificate_nqf_level: setaDetails.nqfLevel,
+            certificate_credits: setaDetails.credits,
+            certificate_seta_registration_number: setaDetails.registrationNumber,
+          }
+        : {}),
     };
 
     // Store in Firestore

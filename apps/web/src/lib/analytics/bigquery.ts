@@ -19,7 +19,7 @@
  * "Ubuntu - I am because we are"
  */
 
-import { createHash } from 'crypto';
+import { createHash, createSign } from 'crypto';
 import type {
   EquityGroup,
   DisabilityStatus,
@@ -52,7 +52,7 @@ export interface BigQueryConfig {
 /**
  * Get BigQuery configuration from environment
  */
-function getBigQueryConfig(): BigQueryConfig {
+export function getBigQueryConfig(): BigQueryConfig {
   const projectId = process.env.GCP_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
   if (!projectId) {
     throw new Error('GCP_PROJECT_ID environment variable not set');
@@ -506,20 +506,33 @@ export class BigQueryAnalyticsClient {
 
   /**
    * Create JWT for service account authentication
-   * Note: In production, use @google-cloud/bigquery SDK which handles this
+   * Uses RS256 signing with the service account private key
    */
   private createJWT(
     header: Record<string, string>,
     payload: Record<string, unknown>
   ): string {
-    // This is a simplified implementation
-    // In production, use proper JWT library with RS256 signing
+    if (!this.config.credentials?.private_key) {
+      throw new Error('Service account private key not configured');
+    }
+
+    // Encode header and payload as base64url
     const base64Header = Buffer.from(JSON.stringify(header)).toString('base64url');
     const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64url');
 
-    // Would sign with private key here
-    // For now, return placeholder (actual signing requires crypto library)
-    return `${base64Header}.${base64Payload}.signature`;
+    // Create the signing input (header.payload)
+    const signingInput = `${base64Header}.${base64Payload}`;
+
+    // Sign with RS256 (RSA-SHA256) using the private key
+    const sign = createSign('RSA-SHA256');
+    sign.update(signingInput);
+    sign.end();
+
+    // The private key from Google service accounts is in PEM format
+    const signature = sign.sign(this.config.credentials.private_key, 'base64url');
+
+    // Return the complete JWT (header.payload.signature)
+    return `${signingInput}.${signature}`;
   }
 }
 
@@ -546,7 +559,7 @@ let bigQueryClient: BigQueryAnalyticsClient | null = null;
 /**
  * Get or create BigQuery client
  */
-function getClient(): BigQueryAnalyticsClient {
+export function getClient(): BigQueryAnalyticsClient {
   if (!bigQueryClient) {
     bigQueryClient = new BigQueryAnalyticsClient();
   }

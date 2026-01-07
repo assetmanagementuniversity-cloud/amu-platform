@@ -1,0 +1,64 @@
+{
+  "module_id": "311-organisational-context",
+  "module_title": "GFMAM 311: Organisational Context",
+  "module_description": "Understanding how asset management fits within organisational strategy, stakeholders, and governance structures.",
+  "module_version": "1.0.0",
+  "module_last_updated": "2026-01-07",
+  "module_estimated_duration_minutes": 180,
+  "module_nqf_level": 5,
+  "module_credits": 8,
+  "module_prerequisites": [],
+  "module_learning_outcomes": [
+    {
+      "outcome_id": "LO-311-01",
+      "outcome_description": "Explain the role of asset management within an organisation's strategic context",
+      "outcome_assessment_criteria": [
+        "Identifies how asset management supports organisational objectives",
+        "Describes the relationship between asset management and organisational strategy",
+        "Explains the value proposition of structured asset management"
+      ],
+      "outcome_bloom_level": "understand"
+    },
+    {
+      "outcome_id": "LO-311-02",
+      "outcome_description": "Identify key stakeholders and their interests in asset management decisions",
+      "outcome_assessment_criteria": [
+        "Maps internal and external stakeholders",
+        "Describes stakeholder interests and expectations",
+        "Explains how to manage conflicting stakeholder requirements"
+      ],
+      "outcome_bloom_level": "analyze"
+    },
+    {
+      "outcome_id": "LO-311-03",
+      "outcome_description": "Describe the governance framework for asset management",
+      "outcome_assessment_criteria": [
+        "Explains the ISO 55001 alignment framework",
+        "Describes roles and responsibilities in asset management governance",
+        "Identifies key policies and procedures needed"
+      ],
+      "outcome_bloom_level": "understand"
+    },
+    {
+      "outcome_id": "LO-311-04",
+      "outcome_description": "Apply organisational context analysis to a workplace scenario",
+      "outcome_assessment_criteria": [
+        "Conducts stakeholder analysis for a given scenario",
+        "Identifies strategic alignment opportunities",
+        "Proposes governance improvements based on analysis"
+      ],
+      "outcome_bloom_level": "apply"
+    }
+  ],
+  "module_keywords": [
+    "organisational context",
+    "stakeholder analysis",
+    "governance",
+    "ISO 55001",
+    "strategic alignment",
+    "asset management policy"
+  ],
+  "module_seta_codes": [
+    "CHIETA-AM-311"
+  ]
+}

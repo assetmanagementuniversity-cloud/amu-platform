@@ -5,7 +5,9 @@
       "Bash(du:*)",
       "Bash(find:*)",
       "Bash(done)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(gh auth status:*)",
+      "Bash(git add:*)"
     ]
   }
 }

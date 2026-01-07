@@ -5,4 +5,10 @@ export {
   sendPayoutRequestedEmail,
   sendPayoutCompletedEmail,
   sendReferralSignupEmail,
+  sendCorporateInvitationEmail,
+  sendBulkCorporateInvitations,
+  sendSETAConfirmationEmail,
+  sendVerificationActionRequiredEmail,
+  sendVerificationReceivedEmail,
+  sendPaymentFailedEmail,
 } from './service';

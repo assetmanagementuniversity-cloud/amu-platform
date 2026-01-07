@@ -26,6 +26,9 @@ import type {
   KarmaPayoutCompletedEmailData,
   ReferralSignupEmailData,
   CorporateInvitationEmailData,
+  SETAEnrolmentConfirmedEmailData,
+  VerificationActionRequiredEmailData,
+  VerificationReceivedEmailData,
 } from './types';
 
 import {
@@ -354,4 +357,180 @@ export async function sendBulkCorporateInvitations(
 
   results.success = results.failed === 0;
   return results;
+}
+
+// ============================================
+// SETA / Verification Email Functions
+// ============================================
+
+/**
+ * Send SETA enrolment confirmation email
+ * Per Section 23.3 - sent when identity verification completes successfully
+ */
+export async function sendSETAConfirmationEmail(
+  toEmail: string,
+  learnerName: string,
+  setaLearnerNumber?: string,
+  companyName?: string
+): Promise<SendEmailResult> {
+  const { setaEnrolmentConfirmedTemplate } = await import('./templates');
+
+  const emailData: SETAEnrolmentConfirmedEmailData = {
+    to: toEmail,
+    toName: learnerName,
+    subject: '',
+    template: 'seta_enrolment_confirmed',
+    data: {
+      learnerName,
+      setaLearnerNumber,
+      verificationDate: new Date().toLocaleDateString('en-ZA', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
+      companyName,
+    },
+  };
+
+  const { subject, html, text } = setaEnrolmentConfirmedTemplate(emailData);
+  return await sendEmail(toEmail, subject, html, text);
+}
+
+/**
+ * Send verification action required email
+ * Per Section 23.3 - sent when AI verification finds issues
+ */
+export async function sendVerificationActionRequiredEmail(
+  toEmail: string,
+  learnerName: string,
+  issueCount: number
+): Promise<SendEmailResult> {
+  const { verificationActionRequiredTemplate } = await import('./templates');
+
+  const emailData: VerificationActionRequiredEmailData = {
+    to: toEmail,
+    toName: learnerName,
+    subject: '',
+    template: 'verification_action_required',
+    data: {
+      learnerName,
+      issueCount,
+      editUrl: 'https://assetmanagementuniversity.org/settings/identity/status',
+    },
+  };
+
+  const { subject, html, text } = verificationActionRequiredTemplate(emailData);
+  return await sendEmail(toEmail, subject, html, text);
+}
+
+/**
+ * Send verification received acknowledgment email
+ * Per Section 23.3 - sent immediately upon submission
+ */
+export async function sendVerificationReceivedEmail(
+  toEmail: string,
+  learnerName: string
+): Promise<SendEmailResult> {
+  const { verificationReceivedTemplate } = await import('./templates');
+
+  const emailData: VerificationReceivedEmailData = {
+    to: toEmail,
+    toName: learnerName,
+    subject: '',
+    template: 'verification_received',
+    data: {
+      learnerName,
+      submissionDate: new Date().toLocaleDateString('en-ZA', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    },
+  };
+
+  const { subject, html, text } = verificationReceivedTemplate(emailData);
+  return await sendEmail(toEmail, subject, html, text);
+}
+
+/**
+ * Send payment failed notification email
+ * Sent when a Stripe payment fails
+ */
+export async function sendPaymentFailedEmail(
+  toEmail: string,
+  learnerName: string,
+  courseTitle: string,
+  failureReason?: string
+): Promise<SendEmailResult> {
+  const subject = 'Payment Failed - Action Required';
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Failed</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f5f5f5;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <tr>
+            <td style="background-color: #0A2F5C; padding: 30px 40px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">
+                Asset Management University
+              </h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 40px;">
+              <h2 style="margin: 0 0 16px 0; color: #EF4444; font-size: 22px; text-align: center;">
+                Payment Failed
+              </h2>
+              <p style="margin: 0 0 24px 0; color: #374151; font-size: 16px; line-height: 1.6; text-align: center;">
+                Hi ${learnerName}, your payment for <strong>${courseTitle}</strong> certificate could not be processed.
+              </p>
+              ${failureReason ? `
+              <p style="margin: 0 0 24px 0; color: #64748B; font-size: 14px; text-align: center;">
+                Reason: ${failureReason}
+              </p>
+              ` : ''}
+              <div style="text-align: center;">
+                <a href="https://assetmanagementuniversity.org/certificates/purchase" style="display: inline-block; background-color: #0A2F5C; color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600;">
+                  Try Again
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #D9E6F2; padding: 24px 40px; text-align: center;">
+              <p style="margin: 0; color: #64748B; font-size: 12px;">
+                <a href="https://assetmanagementuniversity.org" style="color: #0A2F5C; text-decoration: none;">assetmanagementuniversity.org</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+
+  const text = `
+Payment Failed
+
+Hi ${learnerName}, your payment for ${courseTitle} certificate could not be processed.
+${failureReason ? `Reason: ${failureReason}` : ''}
+
+Try again: https://assetmanagementuniversity.org/certificates/purchase
+
+Asset Management University
+  `.trim();
+
+  return await sendEmail(toEmail, subject, html, text);
 }

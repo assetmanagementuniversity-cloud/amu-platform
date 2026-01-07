@@ -1,0 +1,88 @@
+{
+  "competencies": [
+    {
+      "competency_id": "COMP-311-01",
+      "competency_title": "Strategic Context Understanding",
+      "competency_description": "Demonstrate understanding of how asset management aligns with and supports organisational strategy and objectives.",
+      "competency_indicators": [
+        {
+          "indicator_id": "IND-311-01-A",
+          "indicator_description": "Can articulate the organisation's mission, vision, and strategic objectives related to assets",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-01-B",
+          "indicator_description": "Can explain how asset management decisions impact strategic outcomes",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-01-C",
+          "indicator_description": "Can identify gaps between current asset management practices and strategic requirements",
+          "indicator_level": "developing"
+        },
+        {
+          "indicator_id": "IND-311-01-D",
+          "indicator_description": "Can propose strategic improvements to asset management approach",
+          "indicator_level": "advanced"
+        }
+      ],
+      "competency_related_outcomes": ["LO-311-01", "LO-311-04"]
+    },
+    {
+      "competency_id": "COMP-311-02",
+      "competency_title": "Stakeholder Management",
+      "competency_description": "Identify, analyse, and effectively engage with stakeholders who have interests in asset management decisions.",
+      "competency_indicators": [
+        {
+          "indicator_id": "IND-311-02-A",
+          "indicator_description": "Can identify all relevant internal and external stakeholders",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-02-B",
+          "indicator_description": "Can describe each stakeholder's interests, influence, and expectations",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-02-C",
+          "indicator_description": "Can prioritise stakeholder engagement based on influence and interest",
+          "indicator_level": "developing"
+        },
+        {
+          "indicator_id": "IND-311-02-D",
+          "indicator_description": "Can develop stakeholder communication and engagement strategies",
+          "indicator_level": "advanced"
+        }
+      ],
+      "competency_related_outcomes": ["LO-311-02", "LO-311-04"]
+    },
+    {
+      "competency_id": "COMP-311-03",
+      "competency_title": "Governance Framework Application",
+      "competency_description": "Understand and apply appropriate governance frameworks to asset management within an organisation.",
+      "competency_indicators": [
+        {
+          "indicator_id": "IND-311-03-A",
+          "indicator_description": "Can describe the key elements of ISO 55001 governance requirements",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-03-B",
+          "indicator_description": "Can identify roles and responsibilities in asset management governance",
+          "indicator_level": "essential"
+        },
+        {
+          "indicator_id": "IND-311-03-C",
+          "indicator_description": "Can assess current governance practices against best practice frameworks",
+          "indicator_level": "developing"
+        },
+        {
+          "indicator_id": "IND-311-03-D",
+          "indicator_description": "Can design governance improvements aligned with organisational needs",
+          "indicator_level": "advanced"
+        }
+      ],
+      "competency_related_outcomes": ["LO-311-03", "LO-311-04"]
+    }
+  ]
+}

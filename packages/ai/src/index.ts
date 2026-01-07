@@ -29,3 +29,6 @@ export * from './marketing';
 
 // Search & Discovery (Natural Language Search & Career Pathways)
 export * from './search';
+
+// Testing (AI-as-Learner Content Testing)
+export * from './testing';
