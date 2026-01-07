@@ -580,7 +580,7 @@ export default function IdentityVerificationPage() {
 
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>
@@ -2120,7 +2120,7 @@ function VerificationStatusView({ status }: { status: VerificationStatus }) {
 
           {status === 'rejected' && (
             <div className="space-y-4">
-              <Alert variant="destructive">
+              <Alert variant="error">
                 <AlertCircle className="h-4 w-4" />
                 <span className="ml-2">Please ensure your documents are clear, legible, and not expired.</span>
               </Alert>

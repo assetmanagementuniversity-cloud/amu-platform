@@ -154,19 +154,19 @@ router.post(
     try {
       switch (event.type) {
         case 'checkout.session.completed':
-          await handleCheckoutComplete(event.data.object as StripeCheckoutSession);
+          await handleCheckoutComplete(event.data.object as unknown as StripeCheckoutSession);
           break;
 
         case 'payment_intent.succeeded':
-          await handlePaymentSuccess(event.data.object as StripePaymentIntent);
+          await handlePaymentSuccess(event.data.object as unknown as StripePaymentIntent);
           break;
 
         case 'payment_intent.payment_failed':
-          await handlePaymentFailed(event.data.object as StripePaymentIntent);
+          await handlePaymentFailed(event.data.object as unknown as StripePaymentIntent);
           break;
 
         case 'account.updated':
-          await handleConnectAccountUpdate(event.data.object as StripeConnectAccount);
+          await handleConnectAccountUpdate(event.data.object as unknown as StripeConnectAccount);
           break;
 
         default:

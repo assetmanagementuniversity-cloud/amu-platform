@@ -194,7 +194,7 @@ export default function SplitTestDetailPage() {
   if (!isAdmin || !test) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive">
+        <Alert variant="error">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">{error || 'Test not found'}</span>
         </Alert>

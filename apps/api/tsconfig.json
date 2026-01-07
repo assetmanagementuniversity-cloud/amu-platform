@@ -2,20 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@amu/shared": ["../../packages/shared/src"],
-      "@amu/database": ["../../packages/database/src"],
-      "@amu/ai": ["../../packages/ai/src"]
-    }
+    "rootDir": "./src"
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "../../packages/shared" },
-    { "path": "../../packages/database" },
-    { "path": "../../packages/ai" }
-  ]
+  "exclude": ["node_modules", "dist"]
 }

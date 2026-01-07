@@ -9,6 +9,11 @@ import { createApiError } from './error-handler';
 export interface AuthenticatedRequest extends Request {
   userId?: string;
   userEmail?: string;
+  user?: {
+    uid: string;
+    email?: string;
+    displayName?: string;
+  };
 }
 
 /**
@@ -33,6 +38,11 @@ export async function requireAuth(
 
     req.userId = decodedToken.uid;
     req.userEmail = decodedToken.email;
+    req.user = {
+      uid: decodedToken.uid,
+      email: decodedToken.email,
+      displayName: decodedToken.name as string | undefined,
+    };
 
     next();
   } catch (error) {
@@ -67,6 +77,11 @@ export async function optionalAuth(
 
     req.userId = decodedToken.uid;
     req.userEmail = decodedToken.email;
+    req.user = {
+      uid: decodedToken.uid,
+      email: decodedToken.email,
+      displayName: decodedToken.name as string | undefined,
+    };
 
     next();
   } catch {
@@ -107,6 +122,11 @@ export async function requireTeamMember(
 
     req.userId = decodedToken.uid;
     req.userEmail = decodedToken.email;
+    req.user = {
+      uid: decodedToken.uid,
+      email: decodedToken.email,
+      displayName: decodedToken.name as string | undefined,
+    };
 
     // Check if user is a team member (admin claim or team_member claim)
     const isAdmin = decodedToken.admin === true;
@@ -153,6 +173,11 @@ export async function requireAdmin(
 
     req.userId = decodedToken.uid;
     req.userEmail = decodedToken.email;
+    req.user = {
+      uid: decodedToken.uid,
+      email: decodedToken.email,
+      displayName: decodedToken.name as string | undefined,
+    };
 
     // Check if user has admin claim
     const isAdmin = decodedToken.admin === true;

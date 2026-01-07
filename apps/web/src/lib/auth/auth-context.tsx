@@ -43,7 +43,7 @@ export interface UserData {
   user_id: string;
   user_email: string;
   user_name: string;
-  user_type: 'learner' | 'training_manager';
+  user_type: 'learner' | 'training_manager' | 'admin';
 
   // Company linkage (Tier 2)
   user_company_id?: string;
@@ -63,6 +63,18 @@ export interface UserData {
   user_id_number?: string;
   user_physical_address?: string;
   user_phone_number?: string;
+  user_first_name?: string;
+  user_surname?: string;
+  user_equity_group?: string;
+  user_disability_status?: string;
+  user_disability_details?: {
+    eyesight?: string;
+    hearing?: string;
+    walking?: string;
+    memory?: string;
+    communicating?: string;
+    self_care?: string;
+  };
 
   // Referrals
   user_referral_code: string;
@@ -82,6 +94,7 @@ interface AuthContextType {
   isOrganisationLinked: boolean;
   isIdentityVerified: boolean;
   verificationStatus: VerificationStatus;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -92,6 +105,7 @@ const AuthContext = createContext<AuthContextType>({
   isOrganisationLinked: false,
   isIdentityVerified: false,
   verificationStatus: 'none',
+  isAdmin: false,
 });
 
 export function useAuth() {
@@ -143,6 +157,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
               user_id_number: data.user_id_number,
               user_physical_address: data.user_physical_address,
               user_phone_number: data.user_phone_number,
+              user_first_name: data.user_first_name,
+              user_surname: data.user_surname,
+              user_equity_group: data.user_equity_group,
+              user_disability_status: data.user_disability_status,
+              user_disability_details: data.user_disability_details,
               user_referral_code: data.user_referral_code || '',
               user_karma_balance: data.user_karma_balance || 0,
               user_email_verified: data.user_email_verified || false,
@@ -172,6 +191,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const isOrganisationLinked = !!userData?.user_company_id;
   const isIdentityVerified = userData?.user_verification_status === 'verified';
   const verificationStatus = userData?.user_verification_status || 'none';
+  const isAdmin = userData?.user_type === 'admin' || 
+    userData?.user_email?.endsWith('@assetmanagementuniversity.org') || false;
 
   // Determine user tier
   let userTier: UserTier = 1;
@@ -191,6 +212,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isOrganisationLinked,
         isIdentityVerified,
         verificationStatus,
+        isAdmin,
       }}
     >
       {children}

@@ -231,7 +231,7 @@ export default function CertificatePurchasePage() {
 
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>

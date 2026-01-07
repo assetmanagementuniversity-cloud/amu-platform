@@ -778,7 +778,7 @@ export async function getUserReferralCode(userId: string): Promise<string | null
 /**
  * Generate referral link for sharing
  */
-export function generateReferralLink(referralCode: string): string {
+export async function generateReferralLink(referralCode: string): string {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://assetmanagementuniversity.org';
   return `${baseUrl}/register?ref=${encodeURIComponent(referralCode)}`;
 }

@@ -24,7 +24,7 @@ import type { CompetencyAchievement, Enrolment } from '@amu/shared';
 // Types
 // ============================================================================
 
-export interface LearnerProfile {
+export interface CareerLearnerProfile {
   userId: string;
   completedModuleIds: string[];
   competenciesAchieved: CompetencyAchievement[];
@@ -134,7 +134,7 @@ const COMPETENCY_SKILL_MAP: Record<string, { category: string; skills: string[] 
  * Analyze learner's current capabilities and gaps
  */
 export async function analyzeCapabilityGaps(
-  profile: LearnerProfile,
+  profile: CareerLearnerProfile,
   targetCareerPath: CareerPath,
   availableModules: SearchableModule[]
 ): Promise<CapabilityGap[]> {
@@ -173,7 +173,7 @@ export async function analyzeCapabilityGaps(
  * Generate "Next Step" recommendations
  */
 export async function generateNextStepRecommendations(
-  profile: LearnerProfile,
+  profile: CareerLearnerProfile,
   availableModules: SearchableModule[],
   targetCareerPath?: CareerPath
 ): Promise<NextStepRecommendation[]> {
@@ -310,7 +310,7 @@ Recommend the best next 5 modules in priority order.`,
  * Generate full career pathway analysis
  */
 export async function generateCareerPathwayAnalysis(
-  profile: LearnerProfile,
+  profile: CareerLearnerProfile,
   targetCareerPath: CareerPath,
   availableModules: SearchableModule[]
 ): Promise<CareerPathwayAnalysis> {
@@ -363,7 +363,7 @@ export async function generateCareerPathwayAnalysis(
  * Build skill matrix visualization data
  */
 export function buildSkillMatrix(
-  profile: LearnerProfile,
+  profile: CareerLearnerProfile,
   targetCareerPath: CareerPath
 ): SkillMatrix[] {
   const categories = new Map<string, SkillMatrix['skills']>();
@@ -459,7 +459,7 @@ function formatEstimatedTime(hours: number): string {
   return `${Math.round(hours / 160)} months`;
 }
 
-function determineCurrentPosition(profile: LearnerProfile): {
+function determineCurrentPosition(profile: CareerLearnerProfile): {
   title: string;
   description: string;
   competencyScore: number;
@@ -508,7 +508,7 @@ function determineCurrentPosition(profile: LearnerProfile): {
 
 function buildMilestones(
   careerPath: CareerPath,
-  profile: LearnerProfile,
+  profile: CareerLearnerProfile,
   modules: SearchableModule[]
 ): { title: string; modules: string[]; completed: boolean }[] {
   // Group recommended modules into milestones

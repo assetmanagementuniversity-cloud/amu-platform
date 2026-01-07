@@ -42,6 +42,7 @@ interface ModuleRecord {
   record_id: string;
   module_id: string;
   module_title: string;
+  course_id?: string;
   course_title: string;
   last_analysis_at: string;
   total_conversations_analyzed: number;
@@ -284,7 +285,7 @@ export default function ModuleFeedbackDetailPage() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive">
+        <Alert variant="error">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">Admin access required</span>
         </Alert>
@@ -295,7 +296,7 @@ export default function ModuleFeedbackDetailPage() {
   if (error || !record) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">{error || 'Module not found'}</span>
         </Alert>

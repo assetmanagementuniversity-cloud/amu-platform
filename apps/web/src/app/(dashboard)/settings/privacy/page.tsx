@@ -369,7 +369,7 @@ export default function PrivacyDashboardPage() {
 
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>
@@ -833,7 +833,7 @@ export default function PrivacyDashboardPage() {
                         />
                       </div>
 
-                      <Alert variant="destructive">
+                      <Alert variant="error">
                         <AlertCircle className="h-4 w-4" />
                         <span className="ml-2">
                           Warning: If you have an active SETA registration, some data must be retained
@@ -853,7 +853,7 @@ export default function PrivacyDashboardPage() {
                           Cancel
                         </Button>
                         <Button
-                          variant="destructive"
+                          variant="error"
                           size="sm"
                           onClick={handleDelete}
                           disabled={deleteLoading}

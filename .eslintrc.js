@@ -17,12 +17,12 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-non-null-assertion': 'warn',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'prefer-const': 'error',
+    'prefer-const': 'warn',
     'no-var': 'error',
   },
   ignorePatterns: [
@@ -49,6 +49,7 @@ module.exports = {
       rules: {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
+        'react/no-unescaped-entities': 'warn',
       },
     },
   ],

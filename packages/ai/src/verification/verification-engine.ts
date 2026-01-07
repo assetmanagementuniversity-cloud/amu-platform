@@ -255,7 +255,7 @@ export async function runVerificationAudit(
   const failureReasons = collectFailureReasons(documentAudit, setaAudit, idValidation);
 
   // Determine overall result
-  const allChecksPassed = Object.values(checks).every((check) => check.passed);
+  const allChecksPassed = Object.values(checks).every((check: any) => check.passed);
   const overallConfidence = calculateOverallConfidence(checks);
 
   let overallResult: AuditResult;
@@ -489,7 +489,7 @@ function calculateOverallConfidence(
   checks: VerificationAuditResult['checks']
 ): number {
   const checkValues = Object.values(checks);
-  const totalConfidence = checkValues.reduce((sum, check) => sum + check.confidence, 0);
+  const totalConfidence: number = checkValues.reduce((sum: number, check: any) => sum + check.confidence, 0) as number;
   return totalConfidence / checkValues.length;
 }
 

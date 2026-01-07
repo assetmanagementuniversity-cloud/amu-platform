@@ -146,7 +146,7 @@ export default function SplitTestsPage() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive">
+        <Alert variant="error">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">Admin access required</span>
         </Alert>
@@ -197,7 +197,7 @@ export default function SplitTestsPage() {
       </div>
 
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>

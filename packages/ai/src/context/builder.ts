@@ -69,6 +69,7 @@ export function buildLearningConversationContext(context: LearningContext): {
     );
     if (competency) {
       competencyContext = {
+        id: currentCompetencyId,
         title: competency.competency_title,
         description: competency.competency_description,
         evidenceCriteria: competency.competency_evidence_criteria,

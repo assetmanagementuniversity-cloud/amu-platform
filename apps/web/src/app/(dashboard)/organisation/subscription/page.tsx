@@ -164,7 +164,7 @@ export default function CorporateSubscriptionPage() {
   if (!company) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">{error || 'No company found'}</span>
         </Alert>
@@ -178,7 +178,7 @@ export default function CorporateSubscriptionPage() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive">
+        <Alert variant="error">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">
             Only company admins can manage subscriptions
@@ -229,7 +229,7 @@ export default function CorporateSubscriptionPage() {
       )}
 
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           {error}
         </Alert>
       )}

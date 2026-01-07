@@ -718,7 +718,7 @@ export default function TeamDashboardPage() {
           </div>
           <div className="flex items-center gap-3">
             {dashboardData.emergency.global_autonomy_halted && (
-              <Alert variant="destructive" className="flex items-center gap-2 px-4 py-2">
+              <Alert variant="error" className="flex items-center gap-2 px-4 py-2">
                 <AlertOctagon className="h-4 w-4" />
                 <span className="font-medium">EMERGENCY HALT ACTIVE</span>
               </Alert>
@@ -1434,7 +1434,7 @@ export default function TeamDashboardPage() {
 
               {dashboardData.emergency.global_autonomy_halted ? (
                 <div className="space-y-3">
-                  <Alert variant="destructive" className="mb-4">
+                  <Alert variant="error" className="mb-4">
                     <AlertOctagon className="h-4 w-4" />
                     <span className="ml-2">All autonomy is currently halted</span>
                   </Alert>
@@ -1449,7 +1449,7 @@ export default function TeamDashboardPage() {
                 </div>
               ) : (
                 <Button
-                  variant="destructive"
+                  variant="error"
                   className="w-full"
                   onClick={handleEmergencyHalt}
                   disabled={actionLoading === 'emergency_halt'}

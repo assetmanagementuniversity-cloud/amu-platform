@@ -23,9 +23,8 @@ import type {
   CreateSplitTestInput,
   SplitTestStatus,
   StopConditionType,
-  DEFAULT_STOP_CONDITIONS,
-  DEFAULT_TRACKED_METRICS,
 } from '@amu/shared';
+import { DEFAULT_STOP_CONDITIONS, DEFAULT_TRACKED_METRICS } from '@amu/shared';
 
 const COLLECTION = 'split_tests';
 

@@ -4,7 +4,7 @@
  */
 
 // User types
-export * from './user';
+export { type UserType, type AuthProvider, type ExperienceLevel, type UserTier, type PersonTitle, type Gender, type EquityGroup, type CitizenStatus, type AlternativeIdType, type DisabilityStatus, type DisabilityDetails, type HighestQualification, type SocioeconomicStatus, type SAProvince, type HomeLanguage, type SetaAddress, type EmergencyContact, type EmploymentDetails, type User, type UserDocument, type CreateUserInput } from './user';
 
 // Company types
 export * from './company';

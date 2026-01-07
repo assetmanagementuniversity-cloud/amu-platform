@@ -3,14 +3,7 @@
  */
 
 import { z } from 'zod';
-import {
-  COMPETENCY_LEVELS,
-  CERTIFICATE_TYPES,
-  ENROLMENT_STATUSES,
-  CONVERSATION_TYPES,
-  PAYMENT_STATUSES,
-  SUPPORTED_LANGUAGES,
-} from '../constants';
+import { SUPPORTED_LANGUAGES } from '../constants';
 
 // ============================================
 // Common Schemas
@@ -146,9 +139,3 @@ export const validateReferralCodeSchema = z.object({
 
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
-export type CreateUserInput = z.infer<typeof createUserSchema>;
-export type CreateCompanyInput = z.infer<typeof createCompanySchema>;
-export type CreateEnrolmentInput = z.infer<typeof createEnrolmentSchema>;
-export type CreateConversationInput = z.infer<typeof createConversationSchema>;
-export type SendMessageInput = z.infer<typeof sendMessageSchema>;
-export type CreatePaymentIntentInput = z.infer<typeof createPaymentIntentSchema>;

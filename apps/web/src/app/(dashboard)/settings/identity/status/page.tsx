@@ -184,7 +184,7 @@ export default function VerificationStatusPage() {
 
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="error" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>
@@ -403,7 +403,7 @@ export default function VerificationStatusPage() {
           {/* Rejected */}
           {verificationStatus === 'rejected' && (
             <div>
-              <Alert variant="destructive" className="mb-6">
+              <Alert variant="error" className="mb-6">
                 <XCircle className="h-4 w-4" />
                 <div className="ml-2">
                   <p className="font-medium">Verification Not Approved</p>

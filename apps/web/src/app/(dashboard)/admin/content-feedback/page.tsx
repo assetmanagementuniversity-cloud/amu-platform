@@ -147,7 +147,7 @@ export default function ContentFeedbackDashboard() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive">
+        <Alert variant="error">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">Admin access required to view this page</span>
         </Alert>
@@ -158,7 +158,7 @@ export default function ContentFeedbackDashboard() {
   if (error) {
     return (
       <div className="mx-auto max-w-2xl py-8">
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="error" className="mb-4">
           <AlertTriangle className="h-4 w-4" />
           <span className="ml-2">{error}</span>
         </Alert>

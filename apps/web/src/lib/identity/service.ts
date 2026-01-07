@@ -54,7 +54,7 @@ import type {
  * - A: Usually 8 (was used for race classification, now always 8)
  * - Z: Check digit (Luhn algorithm)
  */
-export function validateSAID(idNumber: string): SAIDValidation {
+export async function validateSAID(idNumber: string): SAIDValidation {
   // Remove spaces and validate length
   const cleanId = idNumber.replace(/\s/g, '');
 
