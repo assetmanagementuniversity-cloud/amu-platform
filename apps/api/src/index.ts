@@ -25,6 +25,7 @@ import searchRoutes from './routes/search';
 import webhooksRoutes from './routes/webhooks';
 import privacyRoutes from './routes/privacy';
 import checkoutRoutes from './routes/checkout';
+import adminRoutes from './routes/admin';
 
 // Load environment variables
 dotenv.config();
@@ -71,6 +72,7 @@ app.use('/api/search', searchRoutes);
 app.use('/api/webhooks', webhooksRoutes);
 app.use('/api/privacy', privacyRoutes);
 app.use('/api/checkout', checkoutRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Error handling
 app.use(errorHandler);
